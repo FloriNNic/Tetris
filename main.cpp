@@ -34,7 +34,7 @@ void f(unsigned char l, unsigned char h, unsigned char n, unsigned char p[][4])
         }
         endOfLoop:;
 
-        for(k = L; k > L - p[i][2]; k--)
+        for(k = L; k > max(0,L - p[i][2]); k--)
         {
             for(j = p[i][0]; j < p[i][0] + p[i][1]; j++)
             {
@@ -42,14 +42,14 @@ void f(unsigned char l, unsigned char h, unsigned char n, unsigned char p[][4])
             }
         }
 
-
+        if (L - p[i][2] < 0) break;
 
         for(j=1; j<=l; j++)
-            if(a[h][j]){
+            if(a[h][j])
                 nr++;
-            }
 
-        if(nr==l){
+        while(nr==l){
+            nr = 0;
             for(j=1; j<=l; j++)
                 a[h][j]=0;
 
@@ -57,7 +57,10 @@ void f(unsigned char l, unsigned char h, unsigned char n, unsigned char p[][4])
                 for(k=1; k<=l; k++)
                     swap(a[j+1][k],a[j][k]);
 
-            }
+            for(j=1; j<=l; j++)
+            if(a[h][j])
+                nr++;
+       }
 
     }
     for(i = 1; i <= h + 1; i++)
